@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import CriticsPage from './pages/CriticsPage';
 import FavoritesPage from './pages/FavoritesPage';
 import FeaturedPage from './pages/FeaturedPage';
+import HomePage from './pages/HomePage';
 import ReleasesPage from './pages/ReleasesPage';
 import SearchPage from './pages/SearchPage';
 import TitlePage from './pages/TitlePage';
@@ -9,6 +10,11 @@ import TitlePage from './pages/TitlePage';
 const FAVORITES_KEY = 'cinema-atlas:favorites';
 
 const ROUTES = {
+  inicio: {
+    key: 'inicio',
+    label: 'Inicio',
+    path: '#/'
+  },
   busca: {
     key: 'busca',
     label: 'Busca',
@@ -51,7 +57,7 @@ function readFavorites() {
 }
 
 function getRouteFromHash() {
-  const hash = window.location.hash || '#/busca';
+  const hash = window.location.hash || '#/';
   const clean = hash.replace('#/', '');
 
   if (clean.startsWith('titulo/')) {
@@ -59,11 +65,15 @@ function getRouteFromHash() {
     return { key: 'titulo', imdbID };
   }
 
+  if (clean === '') {
+    return { key: 'inicio', imdbID: '' };
+  }
+
   if (ROUTES[clean]) {
     return { key: clean, imdbID: '' };
   }
 
-  return { key: 'busca', imdbID: '' };
+  return { key: 'inicio', imdbID: '' };
 }
 
 function App() {
@@ -75,7 +85,7 @@ function App() {
     window.addEventListener('hashchange', handleHash);
 
     if (!window.location.hash) {
-      window.location.hash = ROUTES.busca.path;
+      window.location.hash = ROUTES.inicio.path;
     }
 
     return () => window.removeEventListener('hashchange', handleHash);
@@ -135,6 +145,8 @@ function App() {
           ))}
         </div>
       </nav>
+
+      {routeInfo.key === 'inicio' && <HomePage />}
 
       {routeInfo.key === 'busca' && (
         <SearchPage

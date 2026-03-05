@@ -124,6 +124,111 @@ a {
   animation: rise 0.55s ease both;
 }
 
+.impact-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  padding: clamp(1.2rem, 3vw, 2.4rem);
+  background: linear-gradient(135deg, #102a3a, #0f7a73 55%, #ef8a52);
+  color: #fff;
+  box-shadow: 0 30px 70px rgba(16, 42, 58, 0.35);
+}
+
+.impact-title {
+  margin: 0.2rem 0 0.6rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.2rem, 10vw, 7rem);
+  line-height: 0.88;
+  letter-spacing: 0.05em;
+}
+
+.impact-subtitle {
+  max-width: 760px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+.impact-cta-row {
+  margin-top: 1.1rem;
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.impact-cta {
+  text-decoration: none;
+  font-weight: 700;
+  border-radius: 12px;
+  padding: 0.7rem 0.95rem;
+}
+
+.impact-cta.primary {
+  background: #fff;
+  color: #102a3a;
+}
+
+.impact-cta.secondary {
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.impact-stats {
+  margin-top: 1.3rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(120px, 1fr));
+  gap: 0.7rem;
+}
+
+.impact-stats article {
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.75rem;
+}
+
+.impact-stats strong {
+  display: block;
+  font-size: 1.5rem;
+}
+
+.impact-stats span {
+  font-size: 0.88rem;
+  opacity: 0.95;
+}
+
+.impact-grid {
+  margin-top: 1.1rem;
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.impact-card {
+  border-radius: 16px;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: var(--shadow);
+}
+
+.impact-card h3 {
+  margin: 0 0 0.45rem;
+}
+
+.impact-card p {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.impact-card a {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-strong);
+  text-decoration: none;
+}
+
 .page-header h2 {
   margin: 0.2rem 0 0.5rem;
   font-family: 'Bebas Neue', sans-serif;
@@ -454,6 +559,10 @@ main {
   .results-head {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .impact-stats {
+    grid-template-columns: 1fr;
   }
 
   .title-panel {

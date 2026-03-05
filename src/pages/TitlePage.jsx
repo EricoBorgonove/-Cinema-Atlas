@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { getTitleById } from '../omdb';
+import { translateToPortuguese } from '../translate';
 
 function TitlePage({ imdbID, onToggleFavorite, isFavorite, onTitleLoaded }) {
   const [details, setDetails] = useState(null);
+  const [translatedPlot, setTranslatedPlot] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -22,6 +24,8 @@ function TitlePage({ imdbID, onToggleFavorite, isFavorite, onTitleLoaded }) {
       try {
         const data = await getTitleById({ imdbID, signal: controller.signal });
         setDetails(data);
+        const plotPt = await translateToPortuguese(data.Plot || '', controller.signal);
+        setTranslatedPlot(plotPt);
         onTitleLoaded(data.Title || '');
       } catch (err) {
         if (err.name !== 'AbortError') {
@@ -83,7 +87,7 @@ function TitlePage({ imdbID, onToggleFavorite, isFavorite, onTitleLoaded }) {
             <p className="meta-line">
               {details.Year} | {details.Runtime} | {details.Genre}
             </p>
-            <p>{details.Plot}</p>
+            <p>{translatedPlot || details.Plot}</p>
             <p>
               <strong>Direcao:</strong> {details.Director}
             </p>

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { getTitleById } from '../omdb';
 
-function TitlePage({ imdbID, onToggleFavorite, isFavorite }) {
+function TitlePage({ imdbID, onToggleFavorite, isFavorite, onTitleLoaded }) {
   const [details, setDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -10,6 +10,7 @@ function TitlePage({ imdbID, onToggleFavorite, isFavorite }) {
     if (!imdbID) {
       setError('Titulo invalido.');
       setLoading(false);
+      onTitleLoaded('');
       return;
     }
 
@@ -21,9 +22,11 @@ function TitlePage({ imdbID, onToggleFavorite, isFavorite }) {
       try {
         const data = await getTitleById({ imdbID, signal: controller.signal });
         setDetails(data);
+        onTitleLoaded(data.Title || '');
       } catch (err) {
         if (err.name !== 'AbortError') {
           setError(err.message || 'Erro ao carregar titulo.');
+          onTitleLoaded('');
         }
       } finally {
         setLoading(false);
@@ -33,7 +36,7 @@ function TitlePage({ imdbID, onToggleFavorite, isFavorite }) {
     fetchTitle();
 
     return () => controller.abort();
-  }, [imdbID]);
+  }, [imdbID, onTitleLoaded]);
 
   const normalizedFavorite = useMemo(() => {
     if (!details) return null;
@@ -52,7 +55,7 @@ function TitlePage({ imdbID, onToggleFavorite, isFavorite }) {
     <main>
       <header className="page-header">
         <p className="eyebrow">Detalhes</p>
-        <h2>Pagina do Titulo</h2>
+        <h2>{details?.Title || 'Carregando titulo'}</h2>
         <p>Visual completo com sinopse, elenco, premios e avaliacao.</p>
       </header>
 

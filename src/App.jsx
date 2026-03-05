@@ -87,6 +87,7 @@ function App() {
   const [routeInfo, setRouteInfo] = useState(getRouteFromHash());
   const [favorites, setFavorites] = useState(readFavorites);
   const [theme, setTheme] = useState(readTheme);
+  const [currentTitleName, setCurrentTitleName] = useState('');
 
   useEffect(() => {
     const handleHash = () => setRouteInfo(getRouteFromHash());
@@ -98,6 +99,12 @@ function App() {
 
     return () => window.removeEventListener('hashchange', handleHash);
   }, []);
+
+  useEffect(() => {
+    if (routeInfo.key !== 'titulo') {
+      setCurrentTitleName('');
+    }
+  }, [routeInfo.key]);
 
   useEffect(() => {
     window.localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
@@ -221,12 +228,14 @@ function App() {
           imdbID={routeInfo.imdbID}
           onToggleFavorite={toggleFavorite}
           isFavorite={isFavorite}
+          onTitleLoaded={setCurrentTitleName}
         />
       )}
 
       <footer className="app-footer">
         <p>
-          Pagina atual: <strong>{routeInfo.key === 'titulo' ? 'titulo' : activeRoute.label}</strong>
+          Pagina atual:{' '}
+          <strong>{routeInfo.key === 'titulo' ? currentTitleName || 'Carregando titulo' : activeRoute.label}</strong>
         </p>
       </footer>
     </div>

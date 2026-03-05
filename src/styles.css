@@ -1,24 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Bebas+Neue&display=swap');
 
 :root {
-  --bg-cream: #f9f3ea;
-  --bg-warm: #eadac6;
-  --ink: #1f252e;
-  --ink-soft: #4c5563;
-  --accent: #0f7a73;
-  --accent-strong: #0b5f5a;
-  --sun: #ef8a52;
-  --card: rgba(255, 255, 255, 0.8);
-  --surface: rgba(255, 255, 255, 0.72);
-  --surface-border: rgba(255, 255, 255, 0.6);
+  --bg-cream: #f3f6fb;
+  --bg-warm: #e7edf8;
+  --ink: #101827;
+  --ink-soft: #4a586f;
+  --accent: #1f73ff;
+  --accent-strong: #1459ca;
+  --sun: #ff8a3c;
+  --card: rgba(255, 255, 255, 0.92);
+  --surface: rgba(255, 255, 255, 0.86);
+  --surface-border: rgba(255, 255, 255, 0.7);
   --field-bg: #ffffff;
-  --muted-btn-bg: #e7ecec;
-  --muted-btn-text: #1f252e;
-  --error-bg: rgba(239, 138, 82, 0.16);
-  --error-text: #6e2f0f;
+  --muted-btn-bg: #e6ebf4;
+  --muted-btn-text: #13213a;
+  --error-bg: rgba(255, 120, 100, 0.15);
+  --error-text: #7a2b1d;
   --text-inverse: #ffffff;
-  --line: rgba(38, 39, 42, 0.12);
-  --shadow: 0 18px 40px rgba(60, 44, 24, 0.18);
+  --line: rgba(88, 106, 136, 0.14);
+  --shadow: 0 18px 50px rgba(22, 39, 68, 0.16);
 }
 
 * {
@@ -30,29 +30,29 @@ body {
   font-family: 'Sora', sans-serif;
   color: var(--ink);
   min-height: 100vh;
-  background: radial-gradient(circle at 20% 20%, #fff8ee 0%, transparent 46%),
-    radial-gradient(circle at 85% 15%, #ffe7c8 0%, transparent 32%),
+  background: radial-gradient(circle at 16% 20%, #ffffff 0%, transparent 46%),
+    radial-gradient(circle at 85% 15%, #dce8ff 0%, transparent 32%),
     linear-gradient(150deg, var(--bg-cream), var(--bg-warm));
   transition: background 0.25s ease, color 0.25s ease;
 }
 
 body[data-theme='dark'] {
-  --bg-cream: #0d121c;
-  --bg-warm: #162231;
-  --ink: #ecf2ff;
-  --ink-soft: #b9c5da;
-  --card: rgba(18, 28, 42, 0.76);
-  --surface: rgba(18, 28, 42, 0.72);
-  --surface-border: rgba(120, 143, 178, 0.28);
-  --field-bg: #131d2a;
-  --muted-btn-bg: #233347;
+  --bg-cream: #070c15;
+  --bg-warm: #101928;
+  --ink: #e9f0ff;
+  --ink-soft: #aebcd5;
+  --card: rgba(14, 21, 35, 0.86);
+  --surface: rgba(14, 21, 35, 0.78);
+  --surface-border: rgba(99, 121, 160, 0.36);
+  --field-bg: #111c2d;
+  --muted-btn-bg: #1d2a40;
   --muted-btn-text: #e5eefc;
-  --error-bg: rgba(255, 122, 89, 0.2);
+  --error-bg: rgba(255, 122, 89, 0.24);
   --error-text: #ffd9cc;
-  --line: rgba(173, 190, 214, 0.12);
-  --shadow: 0 18px 40px rgba(2, 5, 10, 0.42);
-  background: radial-gradient(circle at 20% 20%, #1b2534 0%, transparent 46%),
-    radial-gradient(circle at 85% 15%, #203244 0%, transparent 32%),
+  --line: rgba(144, 165, 200, 0.16);
+  --shadow: 0 20px 55px rgba(1, 4, 10, 0.5);
+  background: radial-gradient(circle at 20% 20%, #19253b 0%, transparent 46%),
+    radial-gradient(circle at 85% 15%, #182844 0%, transparent 32%),
     linear-gradient(150deg, var(--bg-cream), var(--bg-warm));
 }
 
@@ -75,7 +75,7 @@ a {
   gap: 1rem;
   margin-bottom: 1.6rem;
   padding: 0.8rem;
-  border-radius: 14px;
+  border-radius: 16px;
   background: var(--surface);
   border: 1px solid var(--surface-border);
   backdrop-filter: blur(9px);
@@ -105,7 +105,7 @@ a {
 }
 
 .nav-links a.active {
-  background: linear-gradient(150deg, var(--accent), var(--accent-strong));
+  background: linear-gradient(150deg, var(--accent), var(--accent-strong) 70%);
   color: var(--text-inverse);
 }
 
@@ -114,6 +114,7 @@ a {
   color: var(--muted-btn-text);
   padding: 0.56rem 0.8rem;
   white-space: nowrap;
+  border: 1px solid var(--surface-border);
 }
 
 .inline-link {
@@ -180,7 +181,7 @@ a {
 .home-hero {
   border-radius: 24px;
   min-height: 460px;
-  background: linear-gradient(135deg, #101522, #0d6f69);
+  background: linear-gradient(130deg, #08142a, #103c78 45%, #1f73ff);
   background-size: cover;
   background-position: center;
   padding: clamp(1rem, 3vw, 2rem);
@@ -221,8 +222,8 @@ a {
 
 .home-feature-card {
   align-self: end;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   backdrop-filter: blur(6px);
   border-radius: 16px;
   padding: 1rem;
@@ -282,13 +283,18 @@ a {
 }
 
 .home-poster-card {
-  position: relative;
   border-radius: 16px;
   overflow: hidden;
-  min-height: 360px;
-  background: #111;
+  min-height: 100%;
+  background: var(--card);
+  border: 1px solid var(--surface-border);
   box-shadow: var(--shadow);
   scroll-snap-align: start;
+}
+
+.home-poster-media {
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
 }
 
 .home-poster-card img {
@@ -298,27 +304,24 @@ a {
   display: block;
 }
 
-.home-poster-overlay {
-  position: absolute;
-  inset: auto 0 0;
-  padding: 0.75rem;
-  background: linear-gradient(180deg, rgba(4, 8, 12, 0.1), rgba(4, 8, 12, 0.95));
-  color: #fff;
+.home-poster-body {
+  padding: 0.75rem 0.75rem 0.85rem;
 }
 
-.home-poster-overlay h4 {
+.home-poster-body h4 {
   margin: 0;
   font-size: 1rem;
+  color: var(--ink);
 }
 
-.home-poster-overlay p {
+.home-poster-body p {
   margin: 0.2rem 0;
   font-size: 0.84rem;
-  color: rgba(255, 255, 255, 0.86);
+  color: var(--ink-soft);
 }
 
 .home-rating {
-  color: #ffd98d;
+  color: var(--accent-strong);
   font-weight: 700;
 }
 
@@ -368,7 +371,7 @@ h1 {
   gap: 0.8rem;
   margin-top: 1.4rem;
   padding: 0.9rem;
-  border-radius: 20px;
+  border-radius: 18px;
   background: var(--card);
   backdrop-filter: blur(10px);
   border: 1px solid var(--surface-border);
@@ -416,7 +419,7 @@ button {
   border-radius: 12px;
   font-weight: 700;
   cursor: pointer;
-  background: linear-gradient(150deg, var(--accent), var(--accent-strong));
+  background: linear-gradient(150deg, var(--accent), var(--accent-strong) 72%);
   color: #fff;
   padding: 0.75rem 1rem;
   transition: transform 0.14s ease, filter 0.2s ease;
@@ -539,8 +542,8 @@ main {
 }
 
 .secondary-btn.is-favorite {
-  background: #f6d796;
-  color: #3d2a00;
+  background: #ffd898;
+  color: #3b2a00;
 }
 
 .inline-actions {
@@ -668,8 +671,8 @@ main {
     align-items: flex-start;
   }
 
-  .home-poster-card {
-    min-height: 320px;
+  .home-rail-track {
+    grid-auto-columns: minmax(180px, 1fr);
   }
 
   .title-panel {

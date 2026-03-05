@@ -41,16 +41,18 @@ function HomeRail({ title, subtitle, items, onOpenTitle, onToggleFavorite, isFav
       <div className="home-rail-track" role="list" aria-label={title}>
         {items.map((item) => (
           <article key={item.imdbID} className="home-poster-card" role="listitem">
-            <img
-              src={
-                item.Poster && item.Poster !== 'N/A'
-                  ? item.Poster
-                  : 'https://placehold.co/480x720/111827/eeeeee?text=Sem+Poster'
-              }
-              alt={`Poster de ${item.Title}`}
-              loading="lazy"
-            />
-            <div className="home-poster-overlay">
+            <div className="home-poster-media">
+              <img
+                src={
+                  item.Poster && item.Poster !== 'N/A'
+                    ? item.Poster
+                    : 'https://placehold.co/480x720/111827/eeeeee?text=Sem+Poster'
+                }
+                alt={`Poster de ${item.Title}`}
+                loading="lazy"
+              />
+            </div>
+            <div className="home-poster-body">
               <h4>{item.Title}</h4>
               <p>
                 {item.Year} | {item.Type}

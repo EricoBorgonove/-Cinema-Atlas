@@ -3,7 +3,7 @@ import MovieGrid from '../components/MovieGrid';
 import { FEATURED_QUERIES } from '../data/curation';
 import { searchTitles } from '../omdb';
 
-function FeaturedPage({ onOpenDetails }) {
+function FeaturedPage({ onOpenTitle, onToggleFavorite, isFavorite }) {
   const [sections, setSections] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -65,7 +65,9 @@ function FeaturedPage({ onOpenDetails }) {
             items={section.items}
             loading={loading}
             emptyMessage="Sem destaques nesta categoria no momento."
-            onOpenDetails={onOpenDetails}
+            onOpenTitle={onOpenTitle}
+            onToggleFavorite={onToggleFavorite}
+            isFavorite={isFavorite}
           />
         </section>
       ))}

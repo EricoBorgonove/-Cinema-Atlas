@@ -4,16 +4,20 @@ import { CRITICS_LISTS } from '../data/curation';
 import { getTitleByName } from '../omdb';
 
 function normalizeAsSearchItem(movie) {
+  const parsedRating = Number.parseFloat(movie.imdbRating);
+
   return {
     imdbID: movie.imdbID,
     Title: movie.Title,
     Year: movie.Year,
     Type: movie.Type,
-    Poster: movie.Poster
+    Poster: movie.Poster,
+    imdbRating: Number.isFinite(parsedRating) ? parsedRating.toFixed(1) : 'N/A',
+    _ratingSort: Number.isFinite(parsedRating) ? parsedRating : -1
   };
 }
 
-function CriticsPage({ onOpenDetails }) {
+function CriticsPage({ onOpenTitle, onToggleFavorite, isFavorite }) {
   const [lists, setLists] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -42,7 +46,7 @@ function CriticsPage({ onOpenDetails }) {
             return {
               title: list.title,
               description: list.description,
-              items: movies.filter(Boolean)
+              items: movies.filter(Boolean).sort((a, b) => b._ratingSort - a._ratingSort)
             };
           })
         );
@@ -82,7 +86,10 @@ function CriticsPage({ onOpenDetails }) {
             items={list.items}
             loading={loading}
             emptyMessage="Nao foi possivel carregar esta lista no momento."
-            onOpenDetails={onOpenDetails}
+            onOpenTitle={onOpenTitle}
+            onToggleFavorite={onToggleFavorite}
+            isFavorite={isFavorite}
+            showRating
           />
         </section>
       ))}

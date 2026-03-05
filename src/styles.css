@@ -80,6 +80,11 @@ a {
   color: #fff;
 }
 
+.inline-link {
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
 .bg-orb {
   position: absolute;
   border-radius: 50%;
@@ -312,8 +317,32 @@ main {
   text-transform: capitalize;
 }
 
-.card-body button {
-  width: 100%;
+.rating-line {
+  margin-top: -0.25rem;
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
+.card-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.45rem;
+}
+
+.secondary-btn {
+  background: #e7ecec;
+  color: #1f252e;
+}
+
+.secondary-btn.is-favorite {
+  background: #f6d796;
+  color: #3d2a00;
+}
+
+.inline-actions {
+  margin-top: 0.7rem;
+  display: flex;
+  justify-content: center;
 }
 
 .skeleton {
@@ -360,14 +389,42 @@ main {
 
 .close-btn {
   float: right;
-  background: #e7ecec;
-  color: #1f252e;
   padding: 0.42rem 0.65rem;
 }
 
 .meta-line {
   color: var(--ink-soft);
   margin-top: 0;
+}
+
+.title-panel {
+  display: grid;
+  grid-template-columns: minmax(220px, 300px) 1fr;
+  gap: 1rem;
+  border-radius: 16px;
+  padding: 1rem;
+  background: var(--card);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: var(--shadow);
+}
+
+.title-panel img {
+  width: 100%;
+  max-height: 440px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.title-favorite {
+  margin-top: 0.3rem;
+}
+
+.app-footer {
+  margin-top: 1.6rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(31, 37, 46, 0.15);
+  color: var(--ink-soft);
+  font-size: 0.9rem;
 }
 
 @media (max-width: 900px) {
@@ -397,6 +454,10 @@ main {
   .results-head {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .title-panel {
+    grid-template-columns: 1fr;
   }
 
   .card img {

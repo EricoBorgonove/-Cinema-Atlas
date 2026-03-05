@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import MovieGrid from '../components/MovieGrid';
 import { searchTitles } from '../omdb';
 
-function SearchPage({ onOpenDetails }) {
+function SearchPage({ onOpenTitle, onToggleFavorite, isFavorite }) {
   const [query, setQuery] = useState('Dune');
   const [search, setSearch] = useState('Dune');
   const [type, setType] = useState('all');
@@ -130,7 +130,9 @@ function SearchPage({ onOpenDetails }) {
           items={items}
           loading={loading}
           emptyMessage="Nenhum resultado para os filtros atuais."
-          onOpenDetails={onOpenDetails}
+          onOpenTitle={onOpenTitle}
+          onToggleFavorite={onToggleFavorite}
+          isFavorite={isFavorite}
         />
 
         <nav className="pagination" aria-label="Paginas de resultados">

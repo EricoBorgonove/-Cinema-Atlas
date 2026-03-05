@@ -1,9 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
-import DetailsModal from './components/DetailsModal';
 import CriticsPage from './pages/CriticsPage';
+import FavoritesPage from './pages/FavoritesPage';
 import FeaturedPage from './pages/FeaturedPage';
 import ReleasesPage from './pages/ReleasesPage';
 import SearchPage from './pages/SearchPage';
+import TitlePage from './pages/TitlePage';
+
+const FAVORITES_KEY = 'cinema-atlas:favorites';
 
 const ROUTES = {
   busca: {
@@ -25,21 +28,50 @@ const ROUTES = {
     key: 'critica',
     label: 'Listas da Critica',
     path: '#/critica'
+  },
+  favoritos: {
+    key: 'favoritos',
+    label: 'Favoritos',
+    path: '#/favoritos'
   }
 };
 
+function readFavorites() {
+  try {
+    const raw = window.localStorage.getItem(FAVORITES_KEY);
+    if (!raw) return [];
+
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed.filter((item) => item && item.imdbID);
+  } catch (_err) {
+    return [];
+  }
+}
+
 function getRouteFromHash() {
   const hash = window.location.hash || '#/busca';
-  const key = hash.replace('#/', '');
-  return ROUTES[key] ? key : 'busca';
+  const clean = hash.replace('#/', '');
+
+  if (clean.startsWith('titulo/')) {
+    const imdbID = clean.split('/')[1] || '';
+    return { key: 'titulo', imdbID };
+  }
+
+  if (ROUTES[clean]) {
+    return { key: clean, imdbID: '' };
+  }
+
+  return { key: 'busca', imdbID: '' };
 }
 
 function App() {
-  const [route, setRoute] = useState(getRouteFromHash());
-  const [selectedId, setSelectedId] = useState('');
+  const [routeInfo, setRouteInfo] = useState(getRouteFromHash());
+  const [favorites, setFavorites] = useState(readFavorites);
 
   useEffect(() => {
-    const handleHash = () => setRoute(getRouteFromHash());
+    const handleHash = () => setRouteInfo(getRouteFromHash());
     window.addEventListener('hashchange', handleHash);
 
     if (!window.location.hash) {
@@ -49,7 +81,37 @@ function App() {
     return () => window.removeEventListener('hashchange', handleHash);
   }, []);
 
-  const activeRoute = useMemo(() => ROUTES[route], [route]);
+  useEffect(() => {
+    window.localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+  }, [favorites]);
+
+  const activeRoute = useMemo(() => ROUTES[routeInfo.key] || ROUTES.busca, [routeInfo.key]);
+
+  const openTitle = (imdbID) => {
+    window.location.hash = `#/titulo/${imdbID}`;
+  };
+
+  const isFavorite = (imdbID) => favorites.some((item) => item.imdbID === imdbID);
+
+  const toggleFavorite = (item) => {
+    setFavorites((current) => {
+      const exists = current.some((fav) => fav.imdbID === item.imdbID);
+      if (exists) {
+        return current.filter((fav) => fav.imdbID !== item.imdbID);
+      }
+
+      const normalized = {
+        imdbID: item.imdbID,
+        Title: item.Title,
+        Year: item.Year,
+        Type: item.Type,
+        Poster: item.Poster,
+        imdbRating: item.imdbRating || 'N/A'
+      };
+
+      return [normalized, ...current];
+    });
+  };
 
   return (
     <div className="app-shell">
@@ -64,9 +126,9 @@ function App() {
             <a
               key={item.key}
               href={item.path}
-              className={item.key === route ? 'active' : ''}
+              className={item.key === routeInfo.key ? 'active' : ''}
               role="tab"
-              aria-selected={item.key === route}
+              aria-selected={item.key === routeInfo.key}
             >
               {item.label}
             </a>
@@ -74,12 +136,60 @@ function App() {
         </div>
       </nav>
 
-      {activeRoute.key === 'busca' && <SearchPage onOpenDetails={setSelectedId} />}
-      {activeRoute.key === 'destaques' && <FeaturedPage onOpenDetails={setSelectedId} />}
-      {activeRoute.key === 'lancamentos' && <ReleasesPage onOpenDetails={setSelectedId} />}
-      {activeRoute.key === 'critica' && <CriticsPage onOpenDetails={setSelectedId} />}
+      {routeInfo.key === 'busca' && (
+        <SearchPage
+          onOpenTitle={openTitle}
+          onToggleFavorite={toggleFavorite}
+          isFavorite={isFavorite}
+        />
+      )}
 
-      <DetailsModal selectedId={selectedId} onClose={() => setSelectedId('')} />
+      {routeInfo.key === 'destaques' && (
+        <FeaturedPage
+          onOpenTitle={openTitle}
+          onToggleFavorite={toggleFavorite}
+          isFavorite={isFavorite}
+        />
+      )}
+
+      {routeInfo.key === 'lancamentos' && (
+        <ReleasesPage
+          onOpenTitle={openTitle}
+          onToggleFavorite={toggleFavorite}
+          isFavorite={isFavorite}
+        />
+      )}
+
+      {routeInfo.key === 'critica' && (
+        <CriticsPage
+          onOpenTitle={openTitle}
+          onToggleFavorite={toggleFavorite}
+          isFavorite={isFavorite}
+        />
+      )}
+
+      {routeInfo.key === 'favoritos' && (
+        <FavoritesPage
+          favorites={favorites}
+          onOpenTitle={openTitle}
+          onToggleFavorite={toggleFavorite}
+          isFavorite={isFavorite}
+        />
+      )}
+
+      {routeInfo.key === 'titulo' && (
+        <TitlePage
+          imdbID={routeInfo.imdbID}
+          onToggleFavorite={toggleFavorite}
+          isFavorite={isFavorite}
+        />
+      )}
+
+      <footer className="app-footer">
+        <p>
+          Pagina atual: <strong>{routeInfo.key === 'titulo' ? 'titulo' : activeRoute.label}</strong>
+        </p>
+      </footer>
     </div>
   );
 }

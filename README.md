@@ -1,11 +1,13 @@
 # Cinema Atlas (React + Vite + OMDb)
 
-Aplicacao web para explorar filmes e series com visual moderno e 4 paginas:
+Aplicacao web para explorar filmes e series com visual moderno e multiplas paginas:
 
 - `#/busca`: busca completa com filtro por tipo/ano e paginacao
 - `#/destaques`: secoes em destaque por curadoria dinamica
-- `#/lancamentos`: selecao de lancamentos recentes
-- `#/critica`: listas editoriais inspiradas em curadorias de critica
+- `#/lancamentos`: selecao de lancamentos recentes com limite inicial e botao "mostrar mais"
+- `#/critica`: listas editoriais ordenadas por nota IMDb
+- `#/favoritos`: titulos salvos no navegador (`localStorage`)
+- `#/titulo/:imdbID`: pagina propria de detalhes do titulo
 
 ## Funcionalidades
 
@@ -13,7 +15,8 @@ Aplicacao web para explorar filmes e series com visual moderno e 4 paginas:
 - Filtro por tipo (`movie`, `series`, `episode`)
 - Filtro por ano
 - Paginacao
-- Modal com detalhes completos (plot, elenco, direcao, premios, IMDb)
+- Favoritos persistidos localmente
+- Detalhes completos (plot, elenco, direcao, premios, IMDb)
 - Interface responsiva com animacoes suaves
 
 ## Requisitos

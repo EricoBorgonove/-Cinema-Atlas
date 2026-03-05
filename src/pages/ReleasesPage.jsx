@@ -1,12 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import MovieGrid from '../components/MovieGrid';
 import { searchTitles } from '../omdb';
 
 const CURRENT_YEAR = new Date().getFullYear();
+const DEFAULT_VISIBLE = 8;
 
-function ReleasesPage({ onOpenDetails }) {
+function dedupeById(items) {
+  return Array.from(new Map(items.map((item) => [item.imdbID, item])).values());
+}
+
+function ReleasesPage({ onOpenTitle, onToggleFavorite, isFavorite }) {
   const [recentMovies, setRecentMovies] = useState([]);
   const [recentSeries, setRecentSeries] = useState([]);
+  const [movieVisible, setMovieVisible] = useState(DEFAULT_VISIBLE);
+  const [seriesVisible, setSeriesVisible] = useState(DEFAULT_VISIBLE);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -19,14 +26,14 @@ function ReleasesPage({ onOpenDetails }) {
 
       try {
         const [movieA, movieB, seriesA, seriesB] = await Promise.all([
-          searchTitles({ query: 'the', type: 'movie', year: String(CURRENT_YEAR), page: 1, signal: controller.signal }),
-          searchTitles({ query: 'a', type: 'movie', year: String(CURRENT_YEAR - 1), page: 1, signal: controller.signal }),
-          searchTitles({ query: 'the', type: 'series', year: String(CURRENT_YEAR), page: 1, signal: controller.signal }),
-          searchTitles({ query: 'a', type: 'series', year: String(CURRENT_YEAR - 1), page: 1, signal: controller.signal })
+          searchTitles({ query: 'new', type: 'movie', year: String(CURRENT_YEAR), page: 1, signal: controller.signal }),
+          searchTitles({ query: 'best', type: 'movie', year: String(CURRENT_YEAR - 1), page: 1, signal: controller.signal }),
+          searchTitles({ query: 'new', type: 'series', year: String(CURRENT_YEAR), page: 1, signal: controller.signal }),
+          searchTitles({ query: 'best', type: 'series', year: String(CURRENT_YEAR - 1), page: 1, signal: controller.signal })
         ]);
 
-        setRecentMovies([...movieA.items, ...movieB.items].slice(0, 12));
-        setRecentSeries([...seriesA.items, ...seriesB.items].slice(0, 12));
+        setRecentMovies(dedupeById([...movieA.items, ...movieB.items]));
+        setRecentSeries(dedupeById([...seriesA.items, ...seriesB.items]));
       } catch (err) {
         if (err.name !== 'AbortError') {
           setError(err.message || 'Nao foi possivel carregar os lancamentos.');
@@ -41,12 +48,18 @@ function ReleasesPage({ onOpenDetails }) {
     return () => controller.abort();
   }, []);
 
+  const visibleMovies = useMemo(() => recentMovies.slice(0, movieVisible), [recentMovies, movieVisible]);
+  const visibleSeries = useMemo(() => recentSeries.slice(0, seriesVisible), [recentSeries, seriesVisible]);
+
   return (
     <main>
       <header className="page-header">
         <p className="eyebrow">Atualizacoes</p>
         <h2>Lancamentos Recentes</h2>
-        <p>Catalogo focado em filmes e series dos anos mais recentes.</p>
+        <p>
+          Catalogo focado em filmes e series de {CURRENT_YEAR} e {CURRENT_YEAR - 1}, com limite inicial para
+          navegacao mais limpa.
+        </p>
       </header>
 
       {error && <p className="error-box">{error}</p>}
@@ -56,11 +69,28 @@ function ReleasesPage({ onOpenDetails }) {
           <h3>Filmes de {CURRENT_YEAR} e {CURRENT_YEAR - 1}</h3>
         </div>
         <MovieGrid
-          items={recentMovies}
+          items={visibleMovies}
           loading={loading}
           emptyMessage="Nenhum filme recente encontrado."
-          onOpenDetails={onOpenDetails}
+          onOpenTitle={onOpenTitle}
+          onToggleFavorite={onToggleFavorite}
+          isFavorite={isFavorite}
         />
+        {!loading && recentMovies.length > DEFAULT_VISIBLE && (
+          <div className="inline-actions">
+            <button
+              type="button"
+              className="secondary-btn"
+              onClick={() =>
+                setMovieVisible((current) =>
+                  current >= recentMovies.length ? DEFAULT_VISIBLE : Math.min(current + DEFAULT_VISIBLE, recentMovies.length)
+                )
+              }
+            >
+              {movieVisible >= recentMovies.length ? 'Mostrar menos' : 'Mostrar mais filmes'}
+            </button>
+          </div>
+        )}
       </section>
 
       <section className="stack-section">
@@ -68,11 +98,30 @@ function ReleasesPage({ onOpenDetails }) {
           <h3>Series de {CURRENT_YEAR} e {CURRENT_YEAR - 1}</h3>
         </div>
         <MovieGrid
-          items={recentSeries}
+          items={visibleSeries}
           loading={loading}
           emptyMessage="Nenhuma serie recente encontrada."
-          onOpenDetails={onOpenDetails}
+          onOpenTitle={onOpenTitle}
+          onToggleFavorite={onToggleFavorite}
+          isFavorite={isFavorite}
         />
+        {!loading && recentSeries.length > DEFAULT_VISIBLE && (
+          <div className="inline-actions">
+            <button
+              type="button"
+              className="secondary-btn"
+              onClick={() =>
+                setSeriesVisible((current) =>
+                  current >= recentSeries.length
+                    ? DEFAULT_VISIBLE
+                    : Math.min(current + DEFAULT_VISIBLE, recentSeries.length)
+                )
+              }
+            >
+              {seriesVisible >= recentSeries.length ? 'Mostrar menos' : 'Mostrar mais series'}
+            </button>
+          </div>
+        )}
       </section>
     </main>
   );

@@ -8,6 +8,7 @@ import SearchPage from './pages/SearchPage';
 import TitlePage from './pages/TitlePage';
 
 const FAVORITES_KEY = 'cinema-atlas:favorites';
+const THEME_KEY = 'cinema-atlas:theme';
 
 const ROUTES = {
   inicio: {
@@ -56,6 +57,12 @@ function readFavorites() {
   }
 }
 
+function readTheme() {
+  const saved = window.localStorage.getItem(THEME_KEY);
+  if (saved === 'light' || saved === 'dark') return saved;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
 function getRouteFromHash() {
   const hash = window.location.hash || '#/';
   const clean = hash.replace('#/', '');
@@ -79,6 +86,7 @@ function getRouteFromHash() {
 function App() {
   const [routeInfo, setRouteInfo] = useState(getRouteFromHash());
   const [favorites, setFavorites] = useState(readFavorites);
+  const [theme, setTheme] = useState(readTheme);
 
   useEffect(() => {
     const handleHash = () => setRouteInfo(getRouteFromHash());
@@ -94,6 +102,11 @@ function App() {
   useEffect(() => {
     window.localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
   }, [favorites]);
+
+  useEffect(() => {
+    window.localStorage.setItem(THEME_KEY, theme);
+    document.body.setAttribute('data-theme', theme);
+  }, [theme]);
 
   const activeRoute = useMemo(() => ROUTES[routeInfo.key] || ROUTES.busca, [routeInfo.key]);
 
@@ -144,6 +157,14 @@ function App() {
             </a>
           ))}
         </div>
+        <button
+          type="button"
+          className="theme-toggle"
+          onClick={() => setTheme((current) => (current === 'light' ? 'dark' : 'light'))}
+          aria-label="Alternar tema claro e escuro"
+        >
+          {theme === 'light' ? 'Modo escuro' : 'Modo claro'}
+        </button>
       </nav>
 
       {routeInfo.key === 'inicio' && (

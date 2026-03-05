@@ -6,13 +6,13 @@ function FavoritesPage({ favorites, onOpenTitle, onToggleFavorite, isFavorite })
       <header className="page-header">
         <p className="eyebrow">Minha Lista</p>
         <h2>Favoritos</h2>
-        <p>Seus titulos salvos localmente no navegador.</p>
+        <p>Seus títulos salvos localmente no navegador.</p>
       </header>
 
       <MovieGrid
         items={favorites}
         loading={false}
-        emptyMessage="Voce ainda nao favoritou nenhum titulo."
+        emptyMessage="Você ainda não favoritou nenhum título."
         onOpenTitle={onOpenTitle}
         onToggleFavorite={onToggleFavorite}
         isFavorite={isFavorite}

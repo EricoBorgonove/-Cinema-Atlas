@@ -36,7 +36,7 @@ function ReleasesPage({ onOpenTitle, onToggleFavorite, isFavorite }) {
         setRecentSeries(dedupeById([...seriesA.items, ...seriesB.items]));
       } catch (err) {
         if (err.name !== 'AbortError') {
-          setError(err.message || 'Nao foi possivel carregar os lancamentos.');
+          setError(err.message || 'Não foi possível carregar os lançamentos.');
         }
       } finally {
         setLoading(false);
@@ -54,11 +54,11 @@ function ReleasesPage({ onOpenTitle, onToggleFavorite, isFavorite }) {
   return (
     <main>
       <header className="page-header">
-        <p className="eyebrow">Atualizacoes</p>
-        <h2>Lancamentos Recentes</h2>
+        <p className="eyebrow">Atualizações</p>
+        <h2>Lançamentos Recentes</h2>
         <p>
-          Catalogo focado em filmes e series de {CURRENT_YEAR} e {CURRENT_YEAR - 1}, com limite inicial para
-          navegacao mais limpa.
+          Catálogo focado em filmes e séries de {CURRENT_YEAR} e {CURRENT_YEAR - 1}, com limite inicial para
+          navegação mais limpa.
         </p>
       </header>
 
@@ -95,12 +95,12 @@ function ReleasesPage({ onOpenTitle, onToggleFavorite, isFavorite }) {
 
       <section className="stack-section">
         <div className="section-head">
-          <h3>Series de {CURRENT_YEAR} e {CURRENT_YEAR - 1}</h3>
+          <h3>Séries de {CURRENT_YEAR} e {CURRENT_YEAR - 1}</h3>
         </div>
         <MovieGrid
           items={visibleSeries}
           loading={loading}
-          emptyMessage="Nenhuma serie recente encontrada."
+          emptyMessage="Nenhuma série recente encontrada."
           onOpenTitle={onOpenTitle}
           onToggleFavorite={onToggleFavorite}
           isFavorite={isFavorite}
@@ -118,7 +118,7 @@ function ReleasesPage({ onOpenTitle, onToggleFavorite, isFavorite }) {
                 )
               }
             >
-              {seriesVisible >= recentSeries.length ? 'Mostrar menos' : 'Mostrar mais series'}
+              {seriesVisible >= recentSeries.length ? 'Mostrar menos' : 'Mostrar mais séries'}
             </button>
           </div>
         )}

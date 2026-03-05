@@ -40,7 +40,7 @@ function MovieGrid({
                   <p className="rating-line">IMDb: {item.imdbRating}</p>
                 )}
                 <div className="card-actions">
-                  <button onClick={() => onOpenTitle(item.imdbID)}>Ver pagina</button>
+                  <button onClick={() => onOpenTitle(item.imdbID)}>Ver página</button>
                   <button
                     type="button"
                     className={`secondary-btn ${favorite ? 'is-favorite' : ''}`}

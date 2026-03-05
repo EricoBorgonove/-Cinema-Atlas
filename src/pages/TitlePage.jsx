@@ -10,7 +10,7 @@ function TitlePage({ imdbID, onToggleFavorite, isFavorite, onTitleLoaded }) {
 
   useEffect(() => {
     if (!imdbID) {
-      setError('Titulo invalido.');
+      setError('Título inválido.');
       setLoading(false);
       onTitleLoaded('');
       return;
@@ -29,7 +29,7 @@ function TitlePage({ imdbID, onToggleFavorite, isFavorite, onTitleLoaded }) {
         onTitleLoaded(data.Title || '');
       } catch (err) {
         if (err.name !== 'AbortError') {
-          setError(err.message || 'Erro ao carregar titulo.');
+          setError(err.message || 'Erro ao carregar título.');
           onTitleLoaded('');
         }
       } finally {
@@ -59,8 +59,8 @@ function TitlePage({ imdbID, onToggleFavorite, isFavorite, onTitleLoaded }) {
     <main>
       <header className="page-header">
         <p className="eyebrow">Detalhes</p>
-        <h2>{details?.Title || 'Carregando titulo'}</h2>
-        <p>Visual completo com sinopse, elenco, premios e avaliacao.</p>
+        <h2>{details?.Title || 'Carregando título'}</h2>
+        <p>Visual completo com sinopse, elenco, prêmios e avaliação.</p>
       </header>
 
       <p>
@@ -69,7 +69,7 @@ function TitlePage({ imdbID, onToggleFavorite, isFavorite, onTitleLoaded }) {
         </a>
       </p>
 
-      {loading && <p className="empty-state">Carregando titulo...</p>}
+      {loading && <p className="empty-state">Carregando título...</p>}
       {error && <p className="error-box">{error}</p>}
 
       {!loading && details && (
@@ -89,7 +89,7 @@ function TitlePage({ imdbID, onToggleFavorite, isFavorite, onTitleLoaded }) {
             </p>
             <p>{translatedPlot || details.Plot}</p>
             <p>
-              <strong>Direcao:</strong> {details.Director}
+              <strong>Direção:</strong> {details.Director}
             </p>
             <p>
               <strong>Elenco:</strong> {details.Actors}
@@ -98,7 +98,7 @@ function TitlePage({ imdbID, onToggleFavorite, isFavorite, onTitleLoaded }) {
               <strong>IMDb:</strong> {details.imdbRating}
             </p>
             <p>
-              <strong>Premios:</strong> {details.Awards}
+              <strong>Prêmios:</strong> {details.Awards}
             </p>
             <button
               type="button"

@@ -54,7 +54,7 @@ function CriticsPage({ onOpenTitle, onToggleFavorite, isFavorite }) {
         setLists(hydrated);
       } catch (err) {
         if (err.name !== 'AbortError') {
-          setError(err.message || 'Falha ao carregar listas da critica.');
+          setError(err.message || 'Falha ao carregar listas da crítica.');
         }
       } finally {
         setLoading(false);
@@ -70,7 +70,7 @@ function CriticsPage({ onOpenTitle, onToggleFavorite, isFavorite }) {
     <main>
       <header className="page-header">
         <p className="eyebrow">Listas Especiais</p>
-        <h2>Selecoes Da Critica</h2>
+        <h2>Seleções da Crítica</h2>
         <p>Curadoria editorial inspirada em listas recorrentes de especialistas em cinema.</p>
       </header>
 
@@ -85,7 +85,7 @@ function CriticsPage({ onOpenTitle, onToggleFavorite, isFavorite }) {
           <MovieGrid
             items={list.items}
             loading={loading}
-            emptyMessage="Nao foi possivel carregar esta lista no momento."
+            emptyMessage="Não foi possível carregar esta lista no momento."
             onOpenTitle={onOpenTitle}
             onToggleFavorite={onToggleFavorite}
             isFavorite={isFavorite}

@@ -34,7 +34,7 @@ function FeaturedPage({ onOpenTitle, onToggleFavorite, isFavorite }) {
         setSections(results);
       } catch (err) {
         if (err.name !== 'AbortError') {
-          setError(err.message || 'Nao foi possivel carregar os destaques.');
+          setError(err.message || 'Não foi possível carregar os destaques.');
         }
       } finally {
         setLoading(false);
@@ -51,7 +51,7 @@ function FeaturedPage({ onOpenTitle, onToggleFavorite, isFavorite }) {
       <header className="page-header">
         <p className="eyebrow">Curadoria</p>
         <h2>Filmes Em Destaque</h2>
-        <p>Selecao dinamica para descobrir titulos populares por estilo.</p>
+        <p>Seleção dinâmica para descobrir títulos populares por estilo.</p>
       </header>
 
       {error && <p className="error-box">{error}</p>}

@@ -19,7 +19,7 @@ async function request(params, signal) {
 
   const data = await response.json();
   if (data.Response === 'False') {
-    throw new Error(data.Error || 'Resposta invalida da API.');
+    throw new Error(data.Error || 'Resposta inválida da API.');
   }
 
   return data;

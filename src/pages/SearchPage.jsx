@@ -62,15 +62,15 @@ function SearchPage({ onOpenTitle, onToggleFavorite, isFavorite }) {
   return (
     <>
       <header className="hero">
-        <p className="eyebrow">Explorar Catalogo</p>
+        <p className="eyebrow">Explorar Catálogo</p>
         <h1>Cinema Atlas</h1>
         <p className="subtitle">
-          Busque filmes e series, aplique filtros por tipo e ano e abra detalhes completos de cada titulo.
+          Busque filmes e séries, aplique filtros por tipo e ano e abra detalhes completos de cada título.
         </p>
 
         <form className="search-panel" onSubmit={submitSearch}>
           <label className="field">
-            <span>Titulo</span>
+            <span>Título</span>
             <input
               type="text"
               value={query}
@@ -91,8 +91,8 @@ function SearchPage({ onOpenTitle, onToggleFavorite, isFavorite }) {
             >
               <option value="all">Todos</option>
               <option value="movie">Filme</option>
-              <option value="series">Serie</option>
-              <option value="episode">Episodio</option>
+              <option value="series">Série</option>
+              <option value="episode">Episódio</option>
             </select>
           </label>
 
@@ -135,7 +135,7 @@ function SearchPage({ onOpenTitle, onToggleFavorite, isFavorite }) {
           isFavorite={isFavorite}
         />
 
-        <nav className="pagination" aria-label="Paginas de resultados">
+        <nav className="pagination" aria-label="Páginas de resultados">
           <button
             onClick={() => setPage((current) => Math.max(1, current - 1))}
             disabled={page <= 1 || loading}
@@ -143,13 +143,13 @@ function SearchPage({ onOpenTitle, onToggleFavorite, isFavorite }) {
             Anterior
           </button>
           <span>
-            Pagina {page} de {totalPages}
+            Página {page} de {totalPages}
           </span>
           <button
             onClick={() => setPage((current) => Math.min(totalPages, current + 1))}
             disabled={page >= totalPages || loading}
           >
-            Proxima
+            Próxima
           </button>
         </nav>
       </main>

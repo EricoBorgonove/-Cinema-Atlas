@@ -13,7 +13,7 @@ const THEME_KEY = 'cinema-atlas:theme';
 const ROUTES = {
   inicio: {
     key: 'inicio',
-    label: 'Inicio',
+    label: 'Início',
     path: '#/'
   },
   busca: {
@@ -28,12 +28,12 @@ const ROUTES = {
   },
   lancamentos: {
     key: 'lancamentos',
-    label: 'Lancamentos',
+    label: 'Lançamentos',
     path: '#/lancamentos'
   },
   critica: {
     key: 'critica',
-    label: 'Listas da Critica',
+    label: 'Listas da Crítica',
     path: '#/critica'
   },
   favoritos: {
@@ -151,7 +151,7 @@ function App() {
 
       <nav className="top-nav">
         <p className="brand">Cinema Atlas</p>
-        <div className="nav-links" role="tablist" aria-label="Navegacao principal">
+        <div className="nav-links" role="tablist" aria-label="Navegação principal">
           {Object.values(ROUTES).map((item) => (
             <a
               key={item.key}
@@ -234,8 +234,8 @@ function App() {
 
       <footer className="app-footer">
         <p>
-          Pagina atual:{' '}
-          <strong>{routeInfo.key === 'titulo' ? currentTitleName || 'Carregando titulo' : activeRoute.label}</strong>
+          Página atual:{' '}
+          <strong>{routeInfo.key === 'titulo' ? currentTitleName || 'Carregando título' : activeRoute.label}</strong>
         </p>
       </footer>
     </div>

@@ -59,7 +59,7 @@ function HomeRail({ title, subtitle, items, onOpenTitle, onToggleFavorite, isFav
               </p>
               {item.imdbRating && item.imdbRating !== 'N/A' && <p className="home-rating">IMDb {item.imdbRating}</p>}
               <div className="home-poster-actions">
-                <button onClick={() => onOpenTitle(item.imdbID)}>Ver pagina</button>
+                <button onClick={() => onOpenTitle(item.imdbID)}>Ver página</button>
                 <button
                   type="button"
                   className={`secondary-btn ${isFavorite(item.imdbID) ? 'is-favorite' : ''}`}
@@ -123,19 +123,19 @@ function HomePage({ onOpenTitle, onToggleFavorite, isFavorite }) {
             items: dedupe(awards.items.map(normalizeFromSearch)).slice(0, 10)
           },
           {
-            title: `Lancamentos ${CURRENT_YEAR}`,
+            title: `Lançamentos ${CURRENT_YEAR}`,
             subtitle: 'Atualizados para manter sua home viva com novidades.',
             items: dedupe(premieres.items.map(normalizeFromSearch)).slice(0, 10)
           },
           {
-            title: 'Escolhas Da Critica',
-            subtitle: 'Titulos de listas editoriais recorrentes.',
+            title: 'Escolhas da Crítica',
+            subtitle: 'Títulos de listas editoriais recorrentes.',
             items: critics.filter(Boolean)
           }
         ]);
       } catch (err) {
         if (err.name !== 'AbortError') {
-          setError(err.message || 'Nao foi possivel carregar a pagina inicial.');
+          setError(err.message || 'Não foi possível carregar a página inicial.');
         }
       } finally {
         setLoading(false);
@@ -156,7 +156,7 @@ function HomePage({ onOpenTitle, onToggleFavorite, isFavorite }) {
     <main>
       <section className="home-hero" style={heroBg ? { backgroundImage: heroBg } : undefined}>
         <div className="home-hero-content">
-          <p className="eyebrow">Experiencia Premium</p>
+          <p className="eyebrow">Experiência Premium</p>
           <h1 className="home-hero-title">Cinema Atlas</h1>
           <p className="home-hero-subtitle">
             Um hub de descoberta visual: capas reais, curadoria inteligente e navegação profissional para explorar o
@@ -165,7 +165,7 @@ function HomePage({ onOpenTitle, onToggleFavorite, isFavorite }) {
 
           <div className="home-hero-actions">
             <a className="impact-cta primary" href="#/busca">
-              Explorar Catalogo
+              Explorar Catálogo
             </a>
             <a className="impact-cta secondary" href="#/destaques">
               Ver Curadoria
@@ -182,7 +182,7 @@ function HomePage({ onOpenTitle, onToggleFavorite, isFavorite }) {
             </p>
             <p className="home-rating">IMDb {hero.imdbRating || 'N/A'}</p>
             <div className="home-feature-actions">
-              <button onClick={() => onOpenTitle(hero.imdbID)}>Abrir titulo</button>
+              <button onClick={() => onOpenTitle(hero.imdbID)}>Abrir título</button>
               <button
                 type="button"
                 className={`secondary-btn ${isFavorite(hero.imdbID) ? 'is-favorite' : ''}`}
@@ -197,7 +197,7 @@ function HomePage({ onOpenTitle, onToggleFavorite, isFavorite }) {
 
       {error && <p className="error-box home-error">{error}</p>}
 
-      {loading && <p className="empty-state">Carregando pagina inicial...</p>}
+      {loading && <p className="empty-state">Carregando página inicial...</p>}
 
       {!loading &&
         rails.map((rail) => (

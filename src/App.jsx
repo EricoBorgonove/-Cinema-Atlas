@@ -146,7 +146,13 @@ function App() {
         </div>
       </nav>
 
-      {routeInfo.key === 'inicio' && <HomePage />}
+      {routeInfo.key === 'inicio' && (
+        <HomePage
+          onOpenTitle={openTitle}
+          onToggleFavorite={toggleFavorite}
+          isFavorite={isFavorite}
+        />
+      )}
 
       {routeInfo.key === 'busca' && (
         <SearchPage
